@@ -1,7 +1,7 @@
 
 # `CODEREVIEW.ME` 
 
- [![CodeReview](https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.bounteous.com%2Finsights%2F2019%2F06%2F11%2Fcode-review-limbo-how-low-should-you-go%2F&psig=AOvVaw0a1tnhpXR9agruJgqgtkz8&ust=1634250253481000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCPikpOG2yPMCFQAAAAAdAAAAABAJ)](https://github.com/CS601-F21/side-project-adelgadocabrera)
+ [![CodeReview](https://www.bounteous.com/sites/default/files/insights/2019-06/previews/20190606_blog_code_review_limbo-_how_low_should_you_go_website.png)](https://github.com/CS601-F21/side-project-adelgadocabrera)
 
 #### - Make the world a cleaner place - _Write Clean Code_ 
 
