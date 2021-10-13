@@ -80,10 +80,4 @@ codereview.me aims to help developers write clean code and learn how to do prope
 ## Authors
 
 - [@adelgadocabrera](https://www.github.com/adelgadocabrera)
-
-  
-## License
-
-[MIT](https://choosealicense.com/licenses/mit/)
-
   
