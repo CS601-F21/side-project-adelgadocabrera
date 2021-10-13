@@ -65,7 +65,7 @@ codereview.me aims to help developers write clean code and learn how to do prope
 
 **Server:** 
 - Java (choose one:) 
-    - (Most likely this one) Pure java built in library
+    - (Most likely this one) Pure java built in libraries
     - Use third party [framework](https://hackr.io/blog/java-frameworks)
 
 **Database:**
