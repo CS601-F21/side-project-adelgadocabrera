@@ -64,7 +64,7 @@ codereview.me aims to help developers write clean code and learn how to do prope
 **Client:** 
 - [Next.js](https://nextjs.org/)
 - [React](https://reactjs.org/)
-- [TailwindCSS](https://tailwindcss.com/) (unsure about this one, normally I do my own css)
+- [TailwindCSS](https://tailwindcss.com/) (unsure about this one, normally I do my own css, but it could speed things up)
 
 **Server:** 
 - Java (choose one:) 
