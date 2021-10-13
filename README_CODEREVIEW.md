@@ -22,6 +22,9 @@ codereview.me aims to help developers write clean code and learn how to do prope
         - Student or proffesional 
         - Years of experience
         - Company
+        Additional, most likely not included in mvp
+        - Description about yourself
+        - Favorite programming languages
 
 - Welcome page - nothing fancy
     - (MVP) List of code reviews
