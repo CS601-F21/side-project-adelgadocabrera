@@ -3,7 +3,7 @@
 
  [![CodeReview](https://www.bounteous.com/sites/default/files/insights/2019-06/previews/20190606_blog_code_review_limbo-_how_low_should_you_go_website.png)](https://github.com/CS601-F21/side-project-adelgadocabrera)
 
-#### - _Make the --world-- code a better place_ 
+#### - Make the --world-- code a better place
 
 Your code works. But have you ever wondered if your code is elegant and readable? 
 Do you want to write clean, maintainable code?
