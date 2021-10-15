@@ -3,7 +3,7 @@
 
  [![CodeReview](https://www.bounteous.com/sites/default/files/insights/2019-06/previews/20190606_blog_code_review_limbo-_how_low_should_you_go_website.png)](https://github.com/CS601-F21/side-project-adelgadocabrera)
 
-#### - Make the world a cleaner place :: _Write Clean Code_ 
+#### - _Make the --world-- code a better place_ 
 
 Your code works. But have you ever wondered if your code is elegant and readable? 
 Do you want to write clean, maintainable code?
@@ -34,7 +34,7 @@ codereview.me aims to help developers write clean code and learn how to do prope
         - Number of comments / code reviews
         - Programming language
 
-- Upload and share Github gist
+- Upload and share Github Gist
     - (MVP) Additional information besides Github Gist:
         - (Mandatory) Programming language
         - (Mandatory) Title
