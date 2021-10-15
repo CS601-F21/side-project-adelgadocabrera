@@ -1,6 +1,6 @@
 
 # `CODEREVIEW.ME` 
-#### Make the ~~ world ~~ _code_ a better place
+#### Make the ~~world~~ _code_ a better place
 
  [![CodeReview](https://www.bounteous.com/sites/default/files/insights/2019-06/previews/20190606_blog_code_review_limbo-_how_low_should_you_go_website.png)](https://github.com/CS601-F21/side-project-adelgadocabrera)
 
