@@ -1,0 +1,72 @@
+// This is your Prisma schema file, 📂
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Post {
+  id          Int          @id @default(autoincrement())
+  title       String
+  content     String?
+  gist        String?
+  author      User         @relation(fields: [authorId], references: [id])
+  authorId    Int
+  isOpen      Boolean
+  codereviews CodeReview[]
+}
+
+model User {
+  id            Int       @id @default(autoincrement())
+  username      String
+  email         String    @unique
+  createdAt     DateTime  @default(now()) @map(name: "created_at")
+  updatedAt     DateTime  @updatedAt @map(name: "updated_at")
+
+  isStudent     Boolean
+  isWorker      Boolean
+  company       String
+  studentYears  Int
+  workYears     Int
+
+  posts         Post[]
+  comments      Comment[]
+  CodeReview    CodeReview[]
+
+  @@map(name: "users")
+}
+
+model CodeReview {
+  id        Int       @id @default(autoincrement())
+  author    User?     @relation(fields: [authorId], references: [id])
+  authorId  Int?
+  content   String
+  createdAt DateTime  @default(now()) @map(name: "created_at")
+  updatedAt DateTime  @updatedAt @map(name: "updated_at")
+  comments  Comment[]
+  likes     Int
+  dislikes  Int
+
+  Post   Post? @relation(fields: [postId], references: [id])
+  postId Int?
+  @@map(name: "codereviews")
+}
+
+model Comment {
+  id        Int      @id @default(autoincrement())
+  content   String
+  createdAt DateTime @default(now()) @map(name: "created_at")
+  updatedAt DateTime @updatedAt @map(name: "updated_at")
+  likes     Int
+  author    User?    @relation(fields: [authorId], references: [id])
+  authorId  Int?
+
+  CodeReview   CodeReview? @relation(fields: [codeReviewId], references: [id])
+  codeReviewId Int?
+  @@map(name: "comments")
+}
