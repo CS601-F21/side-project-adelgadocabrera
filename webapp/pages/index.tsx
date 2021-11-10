@@ -1,24 +1,33 @@
-import {useCallback, useEffect, useState} from "react";
-import type {NextPage} from 'next'
+import type {GetServerSideProps, NextPage} from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
-import axios from "axios";
+import {getUsers} from './api/users';
+import User from "../db/user";
 
+export const getServerSideProps: GetServerSideProps = async () => {
+    const users = await getUsers();
+    for (let user of users) {
+        const {createdAt, updatedAt} = user;
+        // @ts-ignore
+        user.createdAt = createdAt.toJSON();
+        // @ts-ignore
+        user.updatedAt = updatedAt.toJSON();
+    }
 
-const Home: NextPage = () => {
-    const [users, setUsers] = useState(null);
-    console.log(users);
+    return {
+        props: {
+            users
+        }
+    }
+}
 
-    const getUsers = useCallback(async () => {
-        const req = await axios.get("/api/users");
-        setUsers(req.data);
-    }, [users])
+interface Props {
+    users: User[];
+}
 
-    useEffect(() => {
-        getUsers();
-    }, [])
-
+const Home: NextPage<Props> = (props) => {
+    console.log(props.users);
     return (
         <div className={styles.container}>
             <Head>

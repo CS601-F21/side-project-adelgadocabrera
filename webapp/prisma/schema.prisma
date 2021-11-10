@@ -1,6 +1,9 @@
 // This is your Prisma schema file, 📂
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
+// TODO: add badge entity
+// TODO: add badges to posts and to users
+
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
@@ -13,30 +16,33 @@ generator client {
 model Post {
   id          Int          @id @default(autoincrement())
   title       String
-  content     String?
+  content     String
   gist        String?
   author      User         @relation(fields: [authorId], references: [id])
   authorId    Int
   isOpen      Boolean
+  likes       Int
+  views       Int
+  badges      Badge[]
   codereviews CodeReview[]
 }
 
 model User {
-  id            Int       @id @default(autoincrement())
-  username      String
-  email         String    @unique
-  createdAt     DateTime  @default(now()) @map(name: "created_at")
-  updatedAt     DateTime  @updatedAt @map(name: "updated_at")
-
-  isStudent     Boolean
-  isWorker      Boolean
-  company       String
-  studentYears  Int
-  workYears     Int
-
-  posts         Post[]
-  comments      Comment[]
-  CodeReview    CodeReview[]
+  id           Int          @id @default(autoincrement())
+  username     String
+  email        String       @unique
+  quote        String
+  createdAt    DateTime     @default(now()) @map(name: "created_at")
+  updatedAt    DateTime     @updatedAt @map(name: "updated_at")
+  isStudent    Boolean
+  isWorker     Boolean
+  company      String
+  studentYears Int
+  workYears    Int
+  posts        Post[]
+  comments     Comment[]
+  CodeReview   CodeReview[]
+  badges       Badge[]
 
   @@map(name: "users")
 }
@@ -50,23 +56,34 @@ model CodeReview {
   updatedAt DateTime  @updatedAt @map(name: "updated_at")
   comments  Comment[]
   likes     Int
-  dislikes  Int
+  post      Post      @relation(fields: [postId], references: [id])
+  postId    Int
 
-  Post   Post? @relation(fields: [postId], references: [id])
-  postId Int?
   @@map(name: "codereviews")
 }
 
 model Comment {
-  id        Int      @id @default(autoincrement())
-  content   String
-  createdAt DateTime @default(now()) @map(name: "created_at")
-  updatedAt DateTime @updatedAt @map(name: "updated_at")
-  likes     Int
-  author    User?    @relation(fields: [authorId], references: [id])
-  authorId  Int?
+  id           Int        @id @default(autoincrement())
+  content      String
+  createdAt    DateTime   @default(now()) @map(name: "created_at")
+  updatedAt    DateTime   @updatedAt @map(name: "updated_at")
+  likes        Int
+  author       User       @relation(fields: [authorId], references: [id])
+  authorId     Int
+  codeReview   CodeReview @relation(fields: [codeReviewId], references: [id])
+  codeReviewId Int
 
-  CodeReview   CodeReview? @relation(fields: [codeReviewId], references: [id])
-  codeReviewId Int?
   @@map(name: "comments")
+}
+
+model Badge {
+  id     Int    @id @default(autoincrement())
+  name   String
+  years  Int
+  Post   Post?  @relation(fields: [postId], references: [id])
+  postId Int?
+  User   User?  @relation(fields: [userId], references: [id])
+  userId Int?
+
+  @@map(name: "badges")
 }
