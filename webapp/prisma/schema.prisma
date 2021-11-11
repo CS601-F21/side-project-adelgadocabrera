@@ -23,8 +23,8 @@ model Post {
   isOpen      Boolean
   likes       Int
   views       Int
-  createdAt   DateTime
-  updatedAt   DateTime
+  createdAt   DateTime     @default(now()) @map(name: "created_at")
+  updatedAt   DateTime     @updatedAt @map(name: "updated_at")
   badges      Badge[]
   codereviews CodeReview[]
 }

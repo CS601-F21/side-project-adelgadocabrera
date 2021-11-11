@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components'
 import IPost from "../../db/post";
 import {Badge} from '../index'
+import moment from "moment";
 
 const Card = styled.section`
     position: relative;
@@ -50,9 +51,12 @@ const Item = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
+    padding: 10px;
+    font-size: 14px;
     
     @media(min-width: 768px){
         height: 100%;
+        padding: 0;
     }
     
     &:hover {
@@ -62,7 +66,11 @@ const Item = styled.div`
 
 const Number = styled.div`
     font-weight: 900;
-    font-size: 24px;
+    font-size: 20px;
+    
+    @media(min-width: 768px){
+        font-size: 24px;
+    }
 `;
 
 const Body = styled.div`
@@ -71,19 +79,20 @@ const Body = styled.div`
     padding: 25px 20px;
     
     @media(min-width: 768px){
-        padding: 40px 40px 20px 60px;
+        padding: 30px 20px 20px 50px;
     }
 `;
 
 const Title = styled.div`
-    font-weight: bold;
-    font-size: 20px;
+    font-weight: 500;
+    font-size: 18px;
     margin-bottom: 0px;
 `;
 
 const Description = styled.p`
     font-size: 16px;
     margin-top: 5px;
+    margin-bottom: 5px;
 `;
 
 const Badges = styled.div`
@@ -93,8 +102,9 @@ const Badges = styled.div`
 `;
 
 const Date = styled.div`
-    text-align: right;
+    margin-bottom: 10px;
     color: gray;
+    font-size: 14px;
 `;
 
 interface Props {
@@ -102,6 +112,8 @@ interface Props {
 }
 
 export const Post: React.FC<Props> = ({post}) => {
+    const contentLength = 30; // 50 chars
+
     return <Card key={"post-" + post.id}>
         <Metadata>
             <Item>
@@ -122,10 +134,10 @@ export const Post: React.FC<Props> = ({post}) => {
                 {post.title}
             </Title>
             <Description>
-                {post.content}
+                {post.content.length > contentLength ? post.content.slice(0, contentLength) + "..." : post.content}
             </Description>
             <Date>
-                {post.createdAt.toLocaleDateString()}
+                {moment(post.createdAt.toLocaleDateString()).startOf('day').fromNow()}
             </Date>
             <Badges>
                 {post.badges.map(b => <Badge key={"badge-" + b.id}>{b.name}</Badge>)}

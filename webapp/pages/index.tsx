@@ -4,7 +4,7 @@ import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import {getUsers} from './api/users';
 import User from "../db/user";
-import {Container, PostCard} from "../components";
+import {Code, Container, Hero, PostCard} from "../components";
 
 export const getServerSideProps: GetServerSideProps = async () => {
     const users = await getUsers();
@@ -31,17 +31,12 @@ const Home: NextPage<Props> = (props) => {
                 <link rel="icon" href="/favicon.ico"/>
             </Head>
 
-            <main
-                className={styles.main}>
-                <h1 className={styles.title}>
-                    Welcome to <a href="https://nextjs.org">Next.js!</a>
-                </h1>
-
+            <Hero/>
+            <main>
                 <p>
-                    Get started by editing{' '}
-                    <code className={styles.code}>pages/index.tsx</code>
+                    Get started by {' '}
+                    <Code>code reviewing</Code>
                 </p>
-
                 <PostCard post={{
                     id: 1,
                     title: "Is this how Firebase API is supposed to be used?",
