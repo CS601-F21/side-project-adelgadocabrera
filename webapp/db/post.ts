@@ -11,7 +11,9 @@ export default interface Post {
     authorId: number;
     isOpen: boolean;
     likes: number;
-    views: number
+    views: number;
+    createdAt: Date;
+    updatedAt: Date;
     badges: Badge[];
-    codereviews: CodeReview[];
+    codeReviews: CodeReview[];
 }

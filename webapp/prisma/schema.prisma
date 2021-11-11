@@ -23,6 +23,8 @@ model Post {
   isOpen      Boolean
   likes       Int
   views       Int
+  createdAt   DateTime
+  updatedAt   DateTime
   badges      Badge[]
   codereviews CodeReview[]
 }
@@ -79,7 +81,7 @@ model Comment {
 model Badge {
   id     Int    @id @default(autoincrement())
   name   String
-  years  Int
+  years  Int?
   Post   Post?  @relation(fields: [postId], references: [id])
   postId Int?
   User   User?  @relation(fields: [userId], references: [id])

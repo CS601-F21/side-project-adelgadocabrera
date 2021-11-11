@@ -1,10 +1,14 @@
 import {PrismaClient} from '@prisma/client'
 
+/**
+ * I don't like using var instead of let/const
+ * but it was the only way of making it work.
+ */
 declare global {
     var prisma: PrismaClient | undefined
 }
 
-let prisma: PrismaClient;
+var prisma: PrismaClient;
 
 if (process.env.NODE_ENV === 'production') {
     prisma = new PrismaClient()
