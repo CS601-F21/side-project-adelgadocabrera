@@ -13,14 +13,14 @@ generator client {
   provider = "prisma-client-js"
 }
 
-model Post {
+model PostCard {
   id          Int          @id @default(autoincrement())
   title       String
   content     String
-  gist        String?
+  gist        String
   author      User         @relation(fields: [authorId], references: [id])
   authorId    Int
-  isOpen      Boolean
+  isOpen      Boolean      @default(true)
   likes       Int
   views       Int
   createdAt   DateTime     @default(now()) @map(name: "created_at")
@@ -41,7 +41,7 @@ model User {
   company      String
   studentYears Int
   workYears    Int
-  posts        Post[]
+  posts        PostCard[]
   comments     Comment[]
   CodeReview   CodeReview[]
   badges       Badge[]
@@ -58,7 +58,7 @@ model CodeReview {
   updatedAt DateTime  @updatedAt @map(name: "updated_at")
   comments  Comment[]
   likes     Int
-  post      Post      @relation(fields: [postId], references: [id])
+  post      PostCard      @relation(fields: [postId], references: [id])
   postId    Int
 
   @@map(name: "codereviews")
@@ -82,7 +82,7 @@ model Badge {
   id     Int    @id @default(autoincrement())
   name   String
   years  Int?
-  Post   Post?  @relation(fields: [postId], references: [id])
+  PostCard   PostCard?  @relation(fields: [postId], references: [id])
   postId Int?
   User   User?  @relation(fields: [userId], references: [id])
   userId Int?

@@ -12,8 +12,15 @@ export default async function (req: NextApiRequest, res: NextApiResponse): Promi
     }
 }
 
+export async function getUserById(id: number): Promise<User | null> {
+    return await Prisma.user.findUnique({
+        where: {
+            id
+        }
+    });
+}
 
-export async function getUsers(): Promise<User[]> {
+export async function getUsers() {
     return await Prisma.user.findMany({
         include: {
             badges: {
