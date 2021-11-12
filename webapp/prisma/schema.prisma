@@ -1,32 +1,24 @@
-// This is your Prisma schema file, 📂
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// TODO: add badge entity
-// TODO: add badges to posts and to users
+generator client {
+  provider = "prisma-client-js"
+}
 
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
-generator client {
-  provider = "prisma-client-js"
-}
-
-model PostCard {
-  id          Int          @id @default(autoincrement())
-  title       String
-  content     String
-  gist        String
-  author      User         @relation(fields: [authorId], references: [id])
-  authorId    Int
-  isOpen      Boolean      @default(true)
-  likes       Int
-  views       Int
-  createdAt   DateTime     @default(now()) @map(name: "created_at")
-  updatedAt   DateTime     @updatedAt @map(name: "updated_at")
-  badges      Badge[]
-  codereviews CodeReview[]
+model Post {
+  id        Int      @id @default(autoincrement())
+  title     String
+  content   String
+  gist      String
+  author    User     @relation(fields: [authorId], references: [id])
+  authorId  Int
+  isOpen    Boolean  @default(true)
+  likes     Int
+  views     Int
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
 }
 
 model User {
@@ -34,58 +26,56 @@ model User {
   username     String
   email        String       @unique
   quote        String
-  createdAt    DateTime     @default(now()) @map(name: "created_at")
-  updatedAt    DateTime     @updatedAt @map(name: "updated_at")
+  createdAt    DateTime     @default(now()) @map("created_at")
+  updatedAt    DateTime     @updatedAt @map("updated_at")
   isStudent    Boolean
   isWorker     Boolean
   company      String
   studentYears Int
   workYears    Int
-  posts        PostCard[]
-  comments     Comment[]
-  CodeReview   CodeReview[]
+  posts        Post[]
   badges       Badge[]
+  CodeReview   CodeReview[]
+  comments     Comment[]
 
-  @@map(name: "users")
+  @@map("users")
 }
 
 model CodeReview {
   id        Int       @id @default(autoincrement())
-  author    User?     @relation(fields: [authorId], references: [id])
   authorId  Int?
   content   String
-  createdAt DateTime  @default(now()) @map(name: "created_at")
-  updatedAt DateTime  @updatedAt @map(name: "updated_at")
-  comments  Comment[]
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
   likes     Int
-  post      PostCard      @relation(fields: [postId], references: [id])
   postId    Int
+  author    User?     @relation(fields: [authorId], references: [id])
+  comments  Comment[]
 
-  @@map(name: "codereviews")
+  @@map("codereviews")
 }
 
 model Comment {
   id           Int        @id @default(autoincrement())
   content      String
-  createdAt    DateTime   @default(now()) @map(name: "created_at")
-  updatedAt    DateTime   @updatedAt @map(name: "updated_at")
+  createdAt    DateTime   @default(now()) @map("created_at")
+  updatedAt    DateTime   @updatedAt @map("updated_at")
   likes        Int
-  author       User       @relation(fields: [authorId], references: [id])
   authorId     Int
-  codeReview   CodeReview @relation(fields: [codeReviewId], references: [id])
   codeReviewId Int
+  author       User       @relation(fields: [authorId], references: [id])
+  codeReview   CodeReview @relation(fields: [codeReviewId], references: [id])
 
-  @@map(name: "comments")
+  @@map("comments")
 }
 
 model Badge {
   id     Int    @id @default(autoincrement())
   name   String
   years  Int?
-  PostCard   PostCard?  @relation(fields: [postId], references: [id])
   postId Int?
-  User   User?  @relation(fields: [userId], references: [id])
   userId Int?
+  User   User?  @relation(fields: [userId], references: [id])
 
-  @@map(name: "badges")
+  @@map("badges")
 }

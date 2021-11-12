@@ -1,11 +1,11 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export default styled.span`
-    padding: 5px 10px;
-    border-radius: 8px;
-    background-color: rgb(10,10,140, 0.7);
-    color: white;
-    font-weight: bold;
-    font-size: 14px;
-    margin-right: 5px;
+  padding: 5px 10px;
+  border-radius: 8px;
+  background-color: rgb(10, 10, 140, 0.7);
+  color: white;
+  font-weight: bold;
+  font-size: 14px;
+  margin-right: 5px;
 `;
