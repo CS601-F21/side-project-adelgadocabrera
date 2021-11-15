@@ -15,7 +15,15 @@ export default async function (
   }
 }
 
-export async function getUserById(id: number): Promise<User | null> {
+export async function getUserByName(name: string) {
+  return await Prisma.user.findUnique({
+    where: {
+      name,
+    },
+  });
+}
+
+export async function getUserById(id: number) {
   return await Prisma.user.findUnique({
     where: {
       id,

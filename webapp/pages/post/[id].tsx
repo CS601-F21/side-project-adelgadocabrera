@@ -1,11 +1,21 @@
 import { GetServerSideProps, NextPage } from "next";
-import { Navbar, PostPage } from "../../components";
+import { Navbar, Footer } from "../../components";
+import { PostPage } from "../../containers";
 import { default as IPost } from "../../db/post";
 import { getPostById } from "../api/posts";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const id: number = Number(context.query.id);
   const post = await getPostById(id);
+
+  if (!post) {
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    };
+  }
 
   return {
     props: {
@@ -20,12 +30,12 @@ interface Props {
 
 const Post: NextPage<Props> = (props) => {
   const { post } = props;
-  console.log(post);
 
   return (
     <>
       <Navbar />
       <PostPage {...post} />
+      <Footer />
     </>
   );
 };

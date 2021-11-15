@@ -1,6 +1,35 @@
 import React from "react";
 import styled from "styled-components";
 import Link from "next/link";
+import { signOut, useSession } from "next-auth/client";
+
+const Navbar: React.FC = () => {
+  const [session, loading] = useSession();
+
+  return (
+    <Nav>
+      <Content>
+        <Link href={"/"}>
+          <Logo>
+            <Braces>{"${"}</Braces>
+            <Fat>CR</Fat>
+            <Braces>{"}"}</Braces>
+          </Logo>
+        </Link>
+        {loading && <span></span>}
+        {!loading && session?.user && (
+          <UserWrapper>
+            <NameTag>#{session?.user?.name}</NameTag>
+            {session?.user?.image && <Avatar src={session.user.image} />}
+          </UserWrapper>
+        )}
+        {!loading && !session && <Login>login</Login>}
+      </Content>
+    </Nav>
+  );
+};
+
+export default Navbar;
 
 const Nav = styled.nav`
   height: 65px;
@@ -18,7 +47,6 @@ const Nav = styled.nav`
 
 const Content = styled.div`
   background-color: #eaeaea;
-  padding-bottom: 10px;
   margin-left: auto;
   margin-right: auto;
   max-width: 1024px;
@@ -42,6 +70,26 @@ const Logo = styled.div`
   }
 `;
 
+const UserWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+`;
+
+const Avatar = styled.img`
+  height: 35px;
+  border-radius: 50%;
+  margin-right: 20px;
+  box-shadow: 0px 5px 5px rgb(0, 0, 0, 0.1);
+`;
+
+const NameTag = styled.span`
+  font-weight: bold;
+  font-size: 18px;
+  margin-right: 20px;
+`;
+
 const Fat = styled.span`
   font-weight: 900;
 `;
@@ -59,22 +107,3 @@ const Login = styled.div`
   border-radius: 8px;
   font-weight: bold;
 `;
-
-const Navbar: React.FC = () => {
-  return (
-    <Link href={"/"}>
-      <Nav>
-        <Content>
-          <Logo>
-            <Braces>{"${"}</Braces>
-            <Fat>CR</Fat>
-            <Braces>{"}"}</Braces>
-          </Logo>
-          <Login>login</Login>
-        </Content>
-      </Nav>
-    </Link>
-  );
-};
-
-export default Navbar;

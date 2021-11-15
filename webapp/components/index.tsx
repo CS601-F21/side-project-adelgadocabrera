@@ -5,6 +5,21 @@ import Badge from "./Badge";
 import Code from "./Code";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
-import PostPage from "./PostPage";
+import AuthorSignature from "./AuthorSignature";
+import Button from "./Button";
+import TextArea from "./TextArea";
+import TextInput from "./TextInput";
 
-export { PostPage, Container, Navbar, Footer, Hero, PostCard, Badge, Code };
+export {
+  Container,
+  Navbar,
+  Footer,
+  Hero,
+  PostCard,
+  Badge,
+  Code,
+  AuthorSignature,
+  Button,
+  TextArea,
+  TextInput,
+};
