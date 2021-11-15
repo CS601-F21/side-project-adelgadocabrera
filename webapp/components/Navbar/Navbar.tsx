@@ -32,13 +32,13 @@ const Navbar: React.FC = () => {
 export default Navbar;
 
 const Nav = styled.nav`
-  height: 65px;
   width: 100%;
   max-width: 100vw;
   padding: 0 20px;
   position: sticky;
   top: 0;
   z-index: 99;
+  background-color: #f1f1f1;
 
   @media (min-width: 768px) {
     padding: 0;
@@ -46,7 +46,6 @@ const Nav = styled.nav`
 `;
 
 const Content = styled.div`
-  background-color: #eaeaea;
   margin-left: auto;
   margin-right: auto;
   max-width: 1024px;

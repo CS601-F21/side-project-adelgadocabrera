@@ -72,5 +72,10 @@ export async function getPosts(pageNumber: number) {
     include: {
       badges: true,
     },
+    orderBy: [
+      {
+        createdAt: "desc",
+      },
+    ],
   });
 }
