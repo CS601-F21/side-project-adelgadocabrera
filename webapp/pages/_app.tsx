@@ -1,16 +1,16 @@
 import { useEffect } from "react";
-import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import { Provider } from "next-auth/client";
 import { useRouter } from "next/router";
 import NProgress from "nprogress";
 import "nprogress/nprogress.css";
+import "../styles/globals.css";
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   const router = useRouter();
 
   useEffect(() => {
-    const handleStart = (url: string) => {
+    const handleStart = () => {
       NProgress.start();
     };
     const handleStop = () => {
