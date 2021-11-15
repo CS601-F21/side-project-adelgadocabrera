@@ -20,6 +20,7 @@ const Posts: React.FC<Props> = ({ posts }) => {
       </HeadlineWrapper>
       {posts.map((p) => (
         <PostCard
+          key={"post-id-" + p.id}
           post={{
             id: p.id,
             title: p.title,
@@ -47,4 +48,5 @@ const HeadlineWrapper = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  margin-bottom: 40px;
 `;

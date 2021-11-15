@@ -5,6 +5,46 @@ import { Badge } from "../index";
 import moment from "moment";
 import Link from "next/link";
 
+export const PostCard: React.FC<Props> = ({ post }) => {
+  const contentLength = 80; // number of chars
+
+  return (
+    <Link href={"/post/" + post.id} key={"post-" + post.id}>
+      <Card>
+        <Metadata>
+          <Item>
+            <Number>{post.likes}</Number>
+            likes
+          </Item>
+          <Item>
+            <Number>{!post.codeReviews ? 0 : post.codeReviews.length}</Number>
+            code reviews
+          </Item>
+        </Metadata>
+        <Body>
+          <Title>{post.title}</Title>
+          <Description>
+            {post.content.length > contentLength
+              ? post.content.slice(0, contentLength) + "..."
+              : post.content}
+          </Description>
+          <Date>
+            {moment(post.createdAt.toLocaleDateString())
+              .startOf("day")
+              .fromNow()}
+          </Date>
+          <Badges>
+            {post.badges &&
+              post.badges.map((b) => (
+                <Badge key={"badge-" + b.id}>{b.name}</Badge>
+              ))}
+          </Badges>
+        </Body>
+      </Card>
+    </Link>
+  );
+};
+
 const Card = styled.section`
   position: relative;
   display: flex;
@@ -110,44 +150,3 @@ const Date = styled.div`
 interface Props {
   post: IPost;
 }
-
-export const PostCard: React.FC<Props> = ({ post }) => {
-  const contentLength = 80; // number of chars
-  console.log(post);
-
-  return (
-    <Link href={"/post/" + post.id}>
-      <Card key={"post-" + post.id}>
-        <Metadata>
-          <Item>
-            <Number>{post.likes}</Number>
-            likes
-          </Item>
-          <Item>
-            <Number>{!post.codeReviews ? 0 : post.codeReviews.length}</Number>
-            code reviews
-          </Item>
-        </Metadata>
-        <Body>
-          <Title>{post.title}</Title>
-          <Description>
-            {post.content.length > contentLength
-              ? post.content.slice(0, contentLength) + "..."
-              : post.content}
-          </Description>
-          <Date>
-            {moment(post.createdAt.toLocaleDateString())
-              .startOf("day")
-              .fromNow()}
-          </Date>
-          <Badges>
-            {post.badges &&
-              post.badges.map((b) => (
-                <Badge key={"badge-" + b.id}>{b.name}</Badge>
-              ))}
-          </Badges>
-        </Body>
-      </Card>
-    </Link>
-  );
-};

@@ -3,9 +3,10 @@ import Badge from "./badge";
 
 export default interface User {
   id: number;
-  username: string;
+  name: string;
   email: string;
   quote: string;
+  image?: string;
   createdAt: Date;
   updatedAt: Date;
   isStudent: boolean;

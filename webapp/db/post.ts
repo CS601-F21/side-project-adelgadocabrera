@@ -7,13 +7,13 @@ export default interface Post {
   title: string;
   content: string;
   gist: string;
-  author: User;
-  authorId: number;
+  authorId: number | null;
+  author?: User;
   isOpen: boolean;
   likes: number;
   views: number;
   createdAt: Date;
   updatedAt: Date;
-  badges: Badge[];
-  codeReviews: CodeReview[];
+  badges?: Badge[];
+  codeReviews?: CodeReview[];
 }

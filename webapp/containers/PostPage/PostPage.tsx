@@ -8,11 +8,9 @@ import Post from "../../db/post";
 import Markdown from "react-markdown";
 import "@uiw/react-md-editor/markdown-editor.css";
 import "@uiw/react-markdown-preview/markdown.css";
-import dynamic from "next/dynamic";
 import Gist from "super-react-gist";
 import CodeReviews from "./CodeReviews";
-
-const MDEditor = dynamic(() => import("@uiw/react-md-editor"), { ssr: false });
+import MDEditor from "@uiw/react-md-editor";
 
 const PostPage: React.FC<Post> = (post) => {
   const {
@@ -28,6 +26,7 @@ const PostPage: React.FC<Post> = (post) => {
     views,
   } = post;
   const [comment, setComment] = useState<string>("");
+  const gistComponent = gist && <Gist url={gist} />;
 
   return (
     <Container>
@@ -41,10 +40,14 @@ const PostPage: React.FC<Post> = (post) => {
         <p>likes: {likes}; </p>
       </Body>
       <SignatureWrapper>
-        <SignatureLabel>Written by</SignatureLabel>
-        <AuthorSignature user={author} />
+        {author && (
+          <>
+            <SignatureLabel>Written by</SignatureLabel>
+            <AuthorSignature user={author} />
+          </>
+        )}
       </SignatureWrapper>
-      <AddCommentLabel>Add comment</AddCommentLabel>
+      <AddCommentLabel>Add Code Review</AddCommentLabel>
       <MDEditor
         style={{
           fontFamily:
@@ -92,7 +95,7 @@ const SignatureWrapper = styled.div`
 
 const SignatureLabel = styled.div`
   font-family: Montserrat;
-  font-weight: 200;
+  font-weight: 400;
   font-size: 13px;
   color: gray;
   position: absolute;

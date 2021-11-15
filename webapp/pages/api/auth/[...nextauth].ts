@@ -18,4 +18,12 @@ const options = {
   ],
   adapter: Adapters.Prisma.Adapter({ prisma }),
   secret: process.env.SECRET,
+  // this adds user session to the session object
+  callbacks: {
+    // @ts-ignore
+    session: async (session, user) => {
+      session.id = user.id;
+      return Promise.resolve(session);
+    },
+  },
 };

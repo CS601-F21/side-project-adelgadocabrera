@@ -4,10 +4,11 @@ import { useSession } from "next-auth/client";
 import { Button, Container, Navbar, TextInput } from "../components";
 import "@uiw/react-md-editor/markdown-editor.css";
 import "@uiw/react-markdown-preview/markdown.css";
-import dynamic from "next/dynamic";
 import styled from "styled-components";
-
-const MDEditor = dynamic(() => import("@uiw/react-md-editor"), { ssr: false });
+import { Response } from "../db/response";
+import { useRouter } from "next/router";
+import Post from "../db/post";
+import MDEditor from "@uiw/react-md-editor";
 
 const Create: NextPage = () => {
   const [session, loading] = useSession();
@@ -15,6 +16,7 @@ const Create: NextPage = () => {
   const [content, setContent] = useState<string>("");
   const [gist, setGist] = useState<string>("");
   const [errorMsg, setErrorMsg] = useState<string>("");
+  const router = useRouter();
 
   const onSubmit = async (e: React.SyntheticEvent): Promise<void> => {
     e.preventDefault();
@@ -38,9 +40,17 @@ const Create: NextPage = () => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),
       });
-      const result = await req.json();
 
-      console.log(result);
+      const post: Response<Post> = await req.json();
+      if (post.statusCode == 200) {
+        const postUrl: string = "/post/" + post.data.id;
+        router.push(postUrl);
+      }
+
+      if (post.statusCode == 400) {
+        setErrorMsg(post.errMsg);
+      }
+
       // TODO: send to new post page
     } catch (error) {
       console.error(error);

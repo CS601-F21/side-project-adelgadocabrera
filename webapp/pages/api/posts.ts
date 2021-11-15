@@ -1,35 +1,39 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import Prisma from "../../db/prisma";
 import { getSession } from "next-auth/client";
-import { getUserByName } from "./users";
+import { success, failure } from "../../db/response";
+import { default as IPost } from "../../db/post";
 
 export default async function (
   req: NextApiRequest,
   res: NextApiResponse
 ): Promise<void> {
-  if (req.method === "POST") {
+  if (req.method === "POST") return doPost(req, res);
+
+  res.status(400).json({
+    error: "400 BAD REQUEST",
+  });
+}
+
+async function doPost(req: NextApiRequest, res: NextApiResponse) {
+  try {
     const { title, content, gist } = req.body;
     const session = await getSession({ req });
-    const user = session?.user?.name && getUserByName(session?.user?.name);
-    console.log(user);
-    res.status(200).json(user);
-    return;
 
     const data = {
       title,
       content,
       gist,
-      author: session?.user?.name,
+      authorId: session?.id,
       views: 0,
       likes: 0,
     };
-    const result = createPost(data);
-    console.log(result);
-  }
 
-  res.status(400).json({
-    error: "400 BAD REQUEST",
-  });
+    const result = await createPost(data);
+    res.status(200).json(success<IPost>(result));
+  } catch (err) {
+    res.status(400).json(failure("Oops! Something went wrong creating post!"));
+  }
 }
 
 interface Post {

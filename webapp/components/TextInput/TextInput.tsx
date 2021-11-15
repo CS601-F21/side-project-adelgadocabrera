@@ -19,6 +19,7 @@ const Input = styled.input`
   box-shadow: 0 0 0 1px rgb(16 22 26 / 10%), 0 0 0 rgb(16 22 26 / 0%),
     0 1px 1px rgb(16 22 26 / 20%);
   outline: none;
+  font-family: Fira Code, Consolas, Menlo;
 `;
 
 interface Props {

@@ -2,6 +2,25 @@ import React from "react";
 import styled from "styled-components";
 import User from "../../db/user";
 
+interface Props {
+  user: User;
+}
+
+const AuthorSignature: React.FC<Props> = ({ user }) => {
+  const { image, name, quote } = user;
+  return (
+    <Container>
+      <Img src={image} />
+      <Body>
+        <Name>@{name}</Name>
+        {quote && <Quote>{quote}</Quote>}
+      </Body>
+    </Container>
+  );
+};
+
+export default AuthorSignature;
+
 const Container = styled.div`
   postion: relative;
   display: flex;
@@ -32,23 +51,3 @@ const Quote = styled.p`
   font-size: 14px;
   margin-top: 0;
 `;
-
-interface Props {
-  user: User;
-}
-
-const AuthorSignature: React.FC<Props> = ({ user }) => {
-  const { username, quote } = user;
-  const avatarUrl = "https://github.com/" + username + ".png";
-  return (
-    <Container>
-      <Img src={avatarUrl} />
-      <Body>
-        <Name>@{username}</Name>
-        {quote && <Quote>{quote}</Quote>}
-      </Body>
-    </Container>
-  );
-};
-
-export default AuthorSignature;
