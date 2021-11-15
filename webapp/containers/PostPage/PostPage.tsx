@@ -78,6 +78,7 @@ const Title = styled.h1`
 const MarkdownWrapper = styled.div`
   margin-bottom: 50px;
   font-size: 18px;
+  line-height: 1.5;
 `;
 
 const Date = styled.span`
