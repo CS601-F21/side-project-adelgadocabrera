@@ -124,7 +124,8 @@ const Body = styled.div`
 `;
 
 const Title = styled.div`
-  font-weight: 500;
+  font-family: Montserrat;
+  font-weight: bold;
   font-size: 18px;
   margin-bottom: 0px;
 `;
