@@ -2,13 +2,14 @@ import { useState } from "react";
 import { NextPage } from "next";
 import { useSession } from "next-auth/client";
 import { Button, Container, Navbar, TextInput } from "../components";
-import "@uiw/react-md-editor/markdown-editor.css";
-import "@uiw/react-markdown-preview/markdown.css";
-import styled from "styled-components";
 import { Response } from "../db/response";
 import { useRouter } from "next/router";
 import Post from "../db/post";
-import MDEditor from "@uiw/react-md-editor";
+import styled from "styled-components";
+import dynamic from "next/dynamic";
+import "@uiw/react-md-editor/markdown-editor.css";
+import "@uiw/react-markdown-preview/markdown.css";
+const MDEditor = dynamic(() => import("@uiw/react-md-editor"), { ssr: false });
 
 const Create: NextPage = () => {
   const [session, loading] = useSession();

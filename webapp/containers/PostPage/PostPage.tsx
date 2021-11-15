@@ -6,11 +6,12 @@ import {
 } from "../../components/index";
 import Post from "../../db/post";
 import Markdown from "react-markdown";
-import "@uiw/react-md-editor/markdown-editor.css";
-import "@uiw/react-markdown-preview/markdown.css";
 import Gist from "super-react-gist";
 import CodeReviews from "./CodeReviews";
-import MDEditor from "@uiw/react-md-editor";
+import dynamic from "next/dynamic";
+import "@uiw/react-md-editor/markdown-editor.css";
+import "@uiw/react-markdown-preview/markdown.css";
+const MDEditor = dynamic(() => import("@uiw/react-md-editor"), { ssr: false });
 
 const PostPage: React.FC<Post> = (post) => {
   const {
@@ -26,7 +27,6 @@ const PostPage: React.FC<Post> = (post) => {
     views,
   } = post;
   const [comment, setComment] = useState<string>("");
-  const gistComponent = gist && <Gist url={gist} />;
 
   return (
     <Container>
