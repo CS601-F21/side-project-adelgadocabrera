@@ -62,7 +62,7 @@ const Create: NextPage = () => {
       <Navbar />
       <Container>
         <Header>Code Review</Header>
-        <form onSubmit={onSubmit}>
+        <Form onSubmit={onSubmit}>
           <Subheader>
             Title <Required>*</Required>
           </Subheader>
@@ -75,7 +75,7 @@ const Create: NextPage = () => {
               fontFamily:
                 "Fira Code, Consolas, Menlo, Droid Sans Mono, Dejavu Sans",
             }}
-            height={250}
+            height={350}
             minHeight={200}
             preview="edit"
             value={content}
@@ -96,16 +96,21 @@ const Create: NextPage = () => {
             callback={onSubmit}
             disabled={loading || !session?.user?.name}
           >
-            Submit!
+            Request Code Review
           </Button>
           {errorMsg && <Error>{errorMsg}</Error>}
-        </form>
+        </Form>
       </Container>
     </>
   );
 };
 
 export default Create;
+
+const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+`;
 
 const Header = styled.h1`
   font-size: 22px;

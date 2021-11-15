@@ -11,9 +11,9 @@ const Navbar: React.FC = () => {
       <Content>
         <Link href={"/"}>
           <Logo>
-            <Braces>{"${"}</Braces>
+            <Braces>{"<"}</Braces>
+            <Braces>{"/> "}</Braces>
             <Fat>CR</Fat>
-            <Braces>{"}"}</Braces>
           </Logo>
         </Link>
         {loading && <span></span>}

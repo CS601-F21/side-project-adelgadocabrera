@@ -8,13 +8,14 @@ interface WrapperProps {
   disabled?: boolean;
 }
 
-const Wrapper = styled.div`
+const Wrapper = styled.button`
     background-color: ${(props: WrapperProps) =>
       props.disabled ? DISABLED : BLUE};
     cursor: ${(props: WrapperProps) =>
       props.disabled ? "not-allowed" : "pointer"};
 
-    padding: 15px; 25px;
+    width: auto;
+    padding: 20px; 30px;
     color: white;
     font-size: 18px;
     font-weight: bold;
@@ -23,6 +24,7 @@ const Wrapper = styled.div`
     transition: filter 0.1s ease-in-out;
     text-align: center;
     box-shadow: 0 5px 10px rgb(0,0,0, 0.1);
+    border: none;
 
     &:hover {
         filter: ${(props: WrapperProps) =>
