@@ -1,15 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { NextPage } from "next";
 import { useSession } from "next-auth/client";
-import { Button, Container, Navbar, TextInput } from "../components";
+import { Container, Button, Navbar, TextInput, MDEditor } from "../components";
 import { Response } from "../db/response";
 import { useRouter } from "next/router";
 import Post from "../db/post";
 import styled from "styled-components";
-import dynamic from "next/dynamic";
-import "@uiw/react-md-editor/markdown-editor.css";
-import "@uiw/react-markdown-preview/markdown.css";
-const MDEditor = dynamic(() => import("@uiw/react-md-editor"), { ssr: false });
 
 const Create: NextPage = () => {
   const [session, loading] = useSession();
@@ -18,6 +14,13 @@ const Create: NextPage = () => {
   const [gist, setGist] = useState<string>("");
   const [errorMsg, setErrorMsg] = useState<string>("");
   const router = useRouter();
+  const username = session?.user?.name;
+
+  useEffect(() => {
+    if (!loading && !username)
+      setErrorMsg("Please sign in to request a code review");
+    if (!loading && username) setErrorMsg("");
+  }, [session, loading]);
 
   const onSubmit = async (e: React.SyntheticEvent): Promise<void> => {
     e.preventDefault();
@@ -26,7 +29,7 @@ const Create: NextPage = () => {
     }
 
     if (!content) {
-      return setErrorMsg("Please, add a description to help other develoeprs");
+      return setErrorMsg("Please, add a description to help other developers");
     }
 
     if (!gist) {
@@ -72,15 +75,10 @@ const Create: NextPage = () => {
             Description <Required>*</Required>
           </Subheader>
           <MDEditor
-            style={{
-              fontFamily:
-                "Fira Code, Consolas, Menlo, Droid Sans Mono, Dejavu Sans",
-            }}
-            height={350}
-            minHeight={200}
-            preview="edit"
             value={content}
-            onChange={(e?: string) => setContent(e ? e : "")}
+            callback={setContent}
+            height={300}
+            minHeight={300}
           />
           <Subheader>
             Gist <Required>*</Required>
@@ -90,13 +88,10 @@ const Create: NextPage = () => {
             callback={setGist}
             fluid
             mt={5}
-            mb={20}
+            mb={40}
             placeholder="https://gist.github.com/<username>/<id>"
           />
-          <Button
-            callback={onSubmit}
-            disabled={loading || !session?.user?.name}
-          >
+          <Button callback={onSubmit} disabled={loading || !username}>
             Request Code Review
           </Button>
           {errorMsg && <Error>{errorMsg}</Error>}
@@ -129,6 +124,6 @@ const Error = styled.p`
   font-family: Montserrat;
   font-weight: bold;
   text-align: center;
-  color: #f44336;
+  color: #cc0000;
   font-size: 18px;
 `;

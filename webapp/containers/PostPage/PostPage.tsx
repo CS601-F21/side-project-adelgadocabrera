@@ -2,16 +2,13 @@ import { useState } from "react";
 import styled from "styled-components";
 import {
   Container as container,
+  MDEditor,
   AuthorSignature,
 } from "../../components/index";
 import Post from "../../db/post";
 import Markdown from "react-markdown";
 import Gist from "super-react-gist";
 import CodeReviews from "./CodeReviews";
-import dynamic from "next/dynamic";
-import "@uiw/react-md-editor/markdown-editor.css";
-import "@uiw/react-markdown-preview/markdown.css";
-const MDEditor = dynamic(() => import("@uiw/react-md-editor"), { ssr: false });
 
 const PostPage: React.FC<Post> = (post) => {
   const {
@@ -49,15 +46,10 @@ const PostPage: React.FC<Post> = (post) => {
       </SignatureWrapper>
       <AddCommentLabel>Add Code Review</AddCommentLabel>
       <MDEditor
-        style={{
-          fontFamily:
-            "Fira Code, Consolas, Menlo, Droid Sans Mono, Dejavu Sans",
-        }}
-        height={150}
-        minHeight={150}
-        preview="edit"
         value={comment}
-        onChange={(e?: string) => setComment(e ? e : "")}
+        callback={setComment}
+        height={250}
+        minHeight={250}
       />
       <CodeReviews />
     </Container>

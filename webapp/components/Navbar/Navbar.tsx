@@ -2,9 +2,30 @@ import React from "react";
 import styled from "styled-components";
 import Link from "next/link";
 import { signOut, useSession } from "next-auth/client";
+import Dropdown, { Option } from "react-dropdown";
+import "react-dropdown/style.css";
+import { useRouter } from "next/router";
 
 const Navbar: React.FC = () => {
   const [session, loading] = useSession();
+  const username = session?.user?.name;
+  const avatar = session?.user?.image;
+  const router = useRouter();
+  const userOptions = [
+    {
+      label: "Profile",
+      value: "profile",
+    },
+    {
+      label: "Sign out",
+      value: "signOut",
+    },
+  ];
+
+  const handleDropdown = (e: Option) => {
+    if (e.value == "profile") router.push("/profile");
+    if (e.value == "signOut") signOut();
+  };
 
   return (
     <Nav>
@@ -17,13 +38,21 @@ const Navbar: React.FC = () => {
           </Logo>
         </Link>
         {loading && <span></span>}
-        {!loading && session?.user && (
+        {!loading && username && (
           <UserWrapper>
-            <NameTag>#{session?.user?.name}</NameTag>
-            {session?.user?.image && <Avatar src={session.user.image} />}
+            {avatar && <Avatar src={avatar} />}
+            <Dropdown
+              options={userOptions}
+              value={"#" + username}
+              onChange={handleDropdown}
+            />
           </UserWrapper>
         )}
-        {!loading && !session && <Login>login</Login>}
+        {!loading && !session && (
+          <Link href="/api/auth/signin">
+            <Login>login</Login>
+          </Link>
+        )}
       </Content>
     </Nav>
   );
@@ -79,14 +108,8 @@ const UserWrapper = styled.div`
 const Avatar = styled.img`
   height: 35px;
   border-radius: 50%;
-  margin-right: 20px;
+  margin-right: 10px;
   box-shadow: 0px 5px 5px rgb(0, 0, 0, 0.1);
-`;
-
-const NameTag = styled.span`
-  font-weight: bold;
-  font-size: 18px;
-  margin-right: 20px;
 `;
 
 const Fat = styled.span`
@@ -103,6 +126,8 @@ const Login = styled.div`
   padding: 10px 25px;
   margin-right: 15px;
   margin-top: 10px;
-  border-radius: 8px;
+  margin-bottom: 10px;
+  border-radius: 3px;
   font-weight: bold;
+  cursor: pointer;
 `;

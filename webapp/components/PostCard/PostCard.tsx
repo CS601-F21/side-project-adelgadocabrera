@@ -50,8 +50,7 @@ const Card = styled.section`
   display: flex;
   flex-direction: column-reverse;
   width: 100%;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  border-radius: 8px;
+  border-radius: 3px;
   cursor: pointer;
   margin-bottom: 20px;
   transition: box-shadow 0.2s linear;
@@ -62,7 +61,7 @@ const Card = styled.section`
   }
 
   &:hover {
-    box-shadow: 0 8px 14px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   }
 `;
 
@@ -79,7 +78,7 @@ const Metadata = styled.div`
     width: 150px;
     margin: 0;
     height: auto;
-    border-radius: 8px 0 0 8px;
+    border-radius: 3px 0 0 3px;
   }
 `;
 

@@ -29,9 +29,45 @@ a {
 
 .blob-code {
   font-size: 15px !important;
-  line-height: 1.5 !important;
+  line-height: 1.6 !important;
+}
+
+.gist-file {
+  box-shadow: none !important;
+  border: none !important;
 }
 
 .gist-meta a:nth-child(2) {
   font-size: 18px !important;
+  color: black !important;
+}
+
+.Dropdown-control {
+  border: none !important;
+  background-color: rgb(0, 0, 0, 0) !important;
+  font-weight: bold;
+  font-size: 20px;
+  cursor: pointer !important;
+}
+
+.Dropdown-control:hover {
+  filter: brightness(0.1) !important;
+}
+
+.Dropdown-option {
+  font-weight: bold;
+  font-size: 16px !important;
+  padding: 15px 20px !important;
+}
+
+.w-md-editor {
+  overflow: hidden !important;
+}
+
+.w-md-editor-text {
+  padding: 20px !important;
+}
+
+.w-md-editor-toolbar {
+  padding-bottom: 10px !important;
 }

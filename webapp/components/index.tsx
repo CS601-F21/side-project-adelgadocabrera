@@ -9,6 +9,7 @@ import AuthorSignature from "./AuthorSignature";
 import Button from "./Button";
 import TextArea from "./TextArea";
 import TextInput from "./TextInput";
+import MDEditor from "./MDEditor";
 
 export {
   Container,
@@ -22,4 +23,5 @@ export {
   Button,
   TextArea,
   TextInput,
+  MDEditor,
 };
