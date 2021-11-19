@@ -22,7 +22,7 @@ const options = {
   callbacks: {
     // @ts-ignore
     session: async (session, user) => {
-      session.id = user.id;
+      session.user.id = user.id;
       return Promise.resolve(session);
     },
   },

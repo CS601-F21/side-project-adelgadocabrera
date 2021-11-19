@@ -16,4 +16,9 @@ export default interface Post {
   updatedAt: Date;
   badges?: Badge[];
   codeReviews?: CodeReview[];
+  _count?: CodeReviewsCounter;
+}
+
+interface CodeReviewsCounter {
+  codeReviews: number;
 }

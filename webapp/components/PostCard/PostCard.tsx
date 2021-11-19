@@ -2,11 +2,11 @@ import React from "react";
 import styled from "styled-components";
 import IPost from "../../db/post";
 import { Badge } from "../index";
-import moment from "moment";
 import Link from "next/link";
+import { fromNow } from "../../utils/dates";
 
 export const PostCard: React.FC<Props> = ({ post }) => {
-  const contentLength = 80; // number of chars
+  const contentLength = 160; // number of chars
 
   return (
     <Link href={"/post/" + post.id} key={"post-" + post.id}>
@@ -17,7 +17,9 @@ export const PostCard: React.FC<Props> = ({ post }) => {
             likes
           </Item>
           <Item>
-            <Number>{!post.codeReviews ? 0 : post.codeReviews.length}</Number>
+            <Number>
+              {!post._count?.codeReviews ? 0 : post._count.codeReviews}
+            </Number>
             code reviews
           </Item>
         </Metadata>
@@ -28,11 +30,7 @@ export const PostCard: React.FC<Props> = ({ post }) => {
               ? post.content.slice(0, contentLength) + "..."
               : post.content}
           </Description>
-          <Date>
-            {moment(post.createdAt.toLocaleDateString())
-              .startOf("day")
-              .fromNow()}
-          </Date>
+          <Date>{fromNow(post.createdAt)}</Date>
           <Badges>
             {post.badges &&
               post.badges.map((b) => (

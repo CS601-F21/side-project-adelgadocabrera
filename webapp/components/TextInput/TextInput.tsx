@@ -51,9 +51,17 @@ const Input = styled.input`
   font-size: 14px;
   padding: 15px;
   border-radius: 3px;
-  border: solid 0px rgb(0, 0, 0);
+  border: solid 1px rgb(0, 0, 0, 0);
   outline: none;
   font-family: Fira Code, Consolas, Menlo;
+
+  &:focus {
+    border: solid 1px rgb(10, 10, 140, 0.7);
+  }
+
+  &:hover {
+    border: solid 1px rgb(10, 10, 140, 0.2);
+  }
 `;
 
 // In case I go back to bordered text inputs

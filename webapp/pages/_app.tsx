@@ -9,6 +9,7 @@ import "../styles/globals.css";
 function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   const router = useRouter();
 
+  // handle Progress Bar animation in between page navigation;
   useEffect(() => {
     const handleStart = () => {
       NProgress.start();

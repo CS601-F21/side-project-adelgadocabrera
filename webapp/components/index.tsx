@@ -10,6 +10,7 @@ import Button from "./Button";
 import TextArea from "./TextArea";
 import TextInput from "./TextInput";
 import MDEditor from "./MDEditor";
+import Markdown from "./Markdown";
 
 export {
   Container,
@@ -24,4 +25,5 @@ export {
   TextArea,
   TextInput,
   MDEditor,
+  Markdown,
 };

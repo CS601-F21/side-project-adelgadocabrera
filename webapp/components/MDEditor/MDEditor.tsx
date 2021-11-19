@@ -18,6 +18,7 @@ const MDEditor: React.FC<Props> = ({ value, callback, height, minHeight }) => {
     <MDReactEditor
       style={{
         fontFamily: "Fira Code, Consolas, Menlo, Droid Sans Mono, Dejavu Sans",
+        fontWeight: 500,
         border: "none",
         boxShadow: "none",
         backgroundColor: "rgb(255, 255, 255, 0.6)",

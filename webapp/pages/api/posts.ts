@@ -24,7 +24,8 @@ async function doPost(req: NextApiRequest, res: NextApiResponse) {
       title,
       content,
       gist,
-      authorId: session?.id,
+      // @ts-ignore
+      authorId: session?.user?.id,
       views: 0,
       likes: 0,
     };
@@ -58,7 +59,12 @@ export async function getPostById(id: number) {
     },
     include: {
       author: true,
-      codeReviews: true,
+      codeReviews: {
+        include: {
+          author: true,
+        },
+        orderBy: [{ updatedAt: "desc" }],
+      },
     },
   });
 }
@@ -71,6 +77,11 @@ export async function getPosts(pageNumber: number) {
     take: paginationSize,
     include: {
       badges: true,
+      _count: {
+        select: {
+          codeReviews: true,
+        },
+      },
     },
     orderBy: [
       {

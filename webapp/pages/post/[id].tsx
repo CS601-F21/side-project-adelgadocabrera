@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { GetServerSideProps, NextPage } from "next";
 import { Navbar, Footer } from "../../components";
 import { PostPage } from "../../containers";
@@ -29,12 +30,12 @@ interface Props {
 }
 
 const Post: NextPage<Props> = (props) => {
-  const { post } = props;
+  const [post, setPost] = useState<IPost>(props.post);
 
   return (
     <>
       <Navbar />
-      <PostPage {...post} />
+      <PostPage post={post} setPost={setPost} />
       <Footer />
     </>
   );

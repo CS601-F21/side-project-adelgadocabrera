@@ -67,7 +67,7 @@ const Nav = styled.nav`
   position: sticky;
   top: 0;
   z-index: 99;
-  background-color: #f1f1f1;
+  background-color: #f6f6f6;
 
   @media (min-width: 768px) {
     padding: 0;

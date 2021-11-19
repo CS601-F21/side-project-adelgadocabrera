@@ -1,18 +1,21 @@
 import React from "react";
 import styled from "styled-components";
 import User from "../../db/user";
+import Link from "next/link";
 
 interface Props {
   user: User;
 }
 
 const AuthorSignature: React.FC<Props> = ({ user }) => {
-  const { image, name, quote } = user;
+  const { name, quote, id } = user;
   return (
     <Container>
-      <Img src={image} />
+      {user?.image && <Img src={user.image} />}
       <Body>
-        <Name>@{name}</Name>
+        <Link href={`user/${id}`}>
+          <Name>@{name}</Name>
+        </Link>
         {quote && <Quote>{quote}</Quote>}
       </Body>
     </Container>
@@ -40,9 +43,10 @@ const Body = styled.div`
 `;
 
 const Name = styled.p`
-  font-size: 15px;
+  font-size: 18px;
   font-weight: 700;
   margin-bottom: 5px;
+  cursor: pointer;
 `;
 
 const Quote = styled.p`

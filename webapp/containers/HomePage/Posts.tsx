@@ -14,27 +14,15 @@ const Posts: React.FC<Props> = ({ posts }) => {
           Get started by <Code>code reviewing</Code>
         </p>
 
-        <Button link to={"/create"}>
+        <Button link to={"/codereview"}>
           Request Code Review
         </Button>
       </HeadlineWrapper>
-      {posts.map((p) => (
+      {posts.map((post) => (
         <PostCard
-          key={"post-id-" + p.id}
+          key={"post-id-" + post.id}
           post={{
-            id: p.id,
-            title: p.title,
-            content: p.content,
-            gist: p.gist,
-            author: p.author,
-            authorId: p.authorId,
-            createdAt: p.createdAt,
-            updatedAt: p.updatedAt,
-            isOpen: p.isOpen,
-            likes: p.likes,
-            views: p.views,
-            badges: p.badges,
-            codeReviews: p.codeReviews,
+            ...post,
           }}
         />
       ))}
