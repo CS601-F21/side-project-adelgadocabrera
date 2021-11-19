@@ -70,6 +70,14 @@ a {
   border: solid 1px rgb(10, 10, 140, 0.2) !important;
 }
 
+.w-md-editor:hover .w-md-editor-toolbar {
+  border-bottom: solid 1px rgb(10, 10, 140, 0.2) !important;
+}
+
+.w-md-editor:focus-within .w-md-editor-toolbar {
+  border-bottom: solid 1px rgb(10, 10, 140, 0.7) !important;
+}
+
 .w-md-editor:focus-within {
   border: solid 1px rgb(10, 10, 140, 0.7) !important;
 }
@@ -79,5 +87,6 @@ a {
 }
 
 .w-md-editor-toolbar {
-  padding-bottom: 10px !important;
+  margin-left: -10px !important;
+  margin-top: -10px !important;
 }
