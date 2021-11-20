@@ -60,6 +60,7 @@ const PostPage: React.FC<Props> = ({ post, setPost }) => {
             codeReviews: [codereview],
           });
     }
+    // TODO: set error message
   };
 
   // TODO: have to handle better gists in case user

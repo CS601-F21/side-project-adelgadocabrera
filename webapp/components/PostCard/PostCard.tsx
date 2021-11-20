@@ -43,6 +43,16 @@ export const PostCard: React.FC<Props> = ({ post }) => {
   );
 };
 
+const Body = styled.div`
+  width: 100%;
+  height: auto;
+  padding: 25px 20px;
+
+  @media (min-width: 768px) {
+    padding: 30px 20px 20px 50px;
+  }
+`;
+
 const Card = styled.section`
   position: relative;
   display: flex;
@@ -51,8 +61,9 @@ const Card = styled.section`
   border-radius: 3px;
   cursor: pointer;
   margin-bottom: 20px;
-  transition: box-shadow 0.2s linear;
   background-color: white;
+  border: solid 1px rgb(0, 0, 0, 0);
+  transition: box-shadow 0.1s linear;
 
   @media (min-width: 768px) {
     flex-direction: row;
@@ -60,6 +71,8 @@ const Card = styled.section`
 
   &:hover {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border: solid 1px rgb(10, 10, 140, 0.7);
+    border-radius: 3px;
   }
 `;
 
@@ -68,7 +81,7 @@ const Metadata = styled.div`
   display: flex;
   width: 100%;
   margin-top: 20px;
-  border-radius: 0 0 8px 8px;
+  border-radius: 0;
   overflow: hidden;
 
   @media (min-width: 768px) {
@@ -107,16 +120,6 @@ const Number = styled.div`
 
   @media (min-width: 768px) {
     font-size: 24px;
-  }
-`;
-
-const Body = styled.div`
-  width: 100%;
-  height: auto;
-  padding: 25px 20px;
-
-  @media (min-width: 768px) {
-    padding: 30px 20px 20px 50px;
   }
 `;
 

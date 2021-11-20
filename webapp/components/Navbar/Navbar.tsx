@@ -8,6 +8,8 @@ import { useRouter } from "next/router";
 
 const Navbar: React.FC = () => {
   const [session, loading] = useSession();
+  // @ts-ignore
+  const id = session?.user?.id;
   const username = session?.user?.name;
   const avatar = session?.user?.image;
   const router = useRouter();
@@ -23,7 +25,7 @@ const Navbar: React.FC = () => {
   ];
 
   const handleDropdown = (e: Option) => {
-    if (e.value == "profile") router.push("/profile");
+    if (e.value == "profile") router.push(`/user/${id}`);
     if (e.value == "signOut") signOut();
   };
 
