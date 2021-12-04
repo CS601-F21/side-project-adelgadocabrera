@@ -3,6 +3,7 @@ import Prisma from "../../db/prisma";
 import { getSession } from "next-auth/client";
 import { success, failure } from "../../db/response";
 import { default as IPost } from "../../db/post";
+import { createBadgesForPost } from "./badges";
 
 export default async function (
   req: NextApiRequest,
@@ -17,7 +18,7 @@ export default async function (
 
 async function doPost(req: NextApiRequest, res: NextApiResponse) {
   try {
-    const { title, content, gist } = req.body;
+    const { title, content, gist, badges } = req.body;
     const session = await getSession({ req });
 
     const data = {
@@ -30,8 +31,12 @@ async function doPost(req: NextApiRequest, res: NextApiResponse) {
       likes: 0,
     };
 
-    const result = await createPost(data);
-    res.status(200).json(success<IPost>(result));
+    // create post && badges
+    const newPost: IPost = await createPost(data);
+    await createBadgesForPost(newPost.id, badges);
+    newPost.badges = badges;
+
+    res.status(200).json(success<IPost>(newPost));
   } catch (err) {
     res.status(400).json(failure("Oops! Something went wrong creating post!"));
   }
@@ -43,7 +48,7 @@ interface Post {
   gist: string;
   views: number;
   likes: number;
-  badges?: number[];
+  badges?: string[];
 }
 
 export async function createPost(post: Post) {

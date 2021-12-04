@@ -55,12 +55,12 @@ const Input = styled.input`
   outline: none;
   font-family: Fira Code, Consolas, Menlo;
 
-  &:focus {
-    border: solid 1px rgb(10, 10, 140, 0.7);
-  }
-
   &:hover {
     border: solid 1px rgb(10, 10, 140, 0.2);
+  }
+
+  &:focus {
+    border: solid 1px rgb(10, 10, 140, 0.7);
   }
 `;
 
