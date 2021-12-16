@@ -28,6 +28,10 @@ export async function getUserById(id: number) {
     where: {
       id,
     },
+    include: {
+      posts: true,
+      badges: true,
+    },
   });
 }
 

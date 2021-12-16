@@ -1,11 +1,22 @@
 import { NextPage, GetServerSideProps } from "next";
 import User from "../../db/user";
 import { getUserById } from "../api/users";
-import { Container, Navbar, Footer } from "../../components";
+import { Navbar, Footer } from "../../components";
+import { UserPage } from "../../containers";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const userId: number = Number(context.query.id);
   const profile = await getUserById(userId);
+
+  if (!profile) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: "/"
+      },
+      props: {}
+    }
+  }
 
   return {
     props: {
@@ -19,15 +30,10 @@ interface Props {
 }
 
 const profilePage: NextPage<Props> = ({ profile }) => {
-  const { name, quote, image } = profile;
-
   return (
     <>
       <Navbar />
-      <Container>
-        This is {name}
-        <img src={image} />
-      </Container>
+      <UserPage profile={profile} />
       <Footer />
     </>
   );

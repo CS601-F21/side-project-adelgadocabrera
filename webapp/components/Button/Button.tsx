@@ -2,7 +2,7 @@ import Link from "next/link";
 import styled from "styled-components";
 
 interface Props {
-  children?: string;
+  children?: React.ReactNode;
   callback?: Function;
   link?: boolean;
   to?: string;

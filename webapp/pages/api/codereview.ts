@@ -1,7 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import Prisma from "../../db/prisma";
 import { failure, success } from "../../db/response";
-import ICodeReview from "../../db/codeReview";
 
 export default async function (
   req: NextApiRequest,

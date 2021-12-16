@@ -6,7 +6,7 @@ import { getPosts } from "./api/posts";
 import Post from "../db/post";
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const posts = await getPosts(0); // implement pagination
+  const posts = await getPosts(0);
 
   return {
     props: {

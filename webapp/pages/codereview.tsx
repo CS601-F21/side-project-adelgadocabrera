@@ -1,4 +1,4 @@
-import { useState, useEffect, ChangeEvent } from "react";
+import { useState, useEffect } from "react";
 import { NextPage } from "next";
 import { useSession } from "next-auth/client";
 import {
@@ -13,6 +13,7 @@ import { Response } from "../db/response";
 import { useRouter } from "next/router";
 import Post from "../db/post";
 import styled from "styled-components";
+import { isGithubGist } from "../utils/gist";
 
 const Create: NextPage = () => {
   const [session, loading] = useSession();
@@ -32,6 +33,7 @@ const Create: NextPage = () => {
 
   const onSubmit = async (e: React.SyntheticEvent): Promise<void> => {
     e.preventDefault();
+
     if (!title) {
       return setErrorMsg("Please, specify a title");
     }
@@ -43,6 +45,11 @@ const Create: NextPage = () => {
     if (!gist) {
       return setErrorMsg("Please, share your code by adding your Github Gist");
     }
+
+    if (!isGithubGist(gist)) {
+      return setErrorMsg("Please, use a correct GitHub Gist format");
+    }
+
     setErrorMsg(""); // clear error messages
 
     const tags = badges
@@ -59,7 +66,7 @@ const Create: NextPage = () => {
       });
 
       const post: Response<Post> = await req.json();
-      console.log("new post", post);
+
       if (post.statusCode == 200) {
         const postUrl: string = "/post/" + post.data.id;
         router.push(postUrl);
@@ -139,7 +146,7 @@ const renderBadges = (badges: string) => {
     .map((badge: string) => {
       badge = badge.trim();
       if (!badge) return;
-      return <Badge>{badge}</Badge>;
+      return <Badge key={badge}>{badge}</Badge>;
     })
     .filter((b) => b);
 };
