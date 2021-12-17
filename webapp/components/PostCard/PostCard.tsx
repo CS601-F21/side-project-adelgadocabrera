@@ -21,7 +21,7 @@ export const PostCard: React.FC<Props> = ({ post, editable }) => {
     setDeleteMsg(e);
 
     if (e == post.title) {
-      const deleteRequest = await fetch("/api/posts", {
+      await fetch("/api/posts", {
         method: "DELETE",
         body: JSON.stringify({ postId: post.id }),
       });
@@ -29,7 +29,7 @@ export const PostCard: React.FC<Props> = ({ post, editable }) => {
     }
   }
 
-  if (postIsDeleted) return "";
+  if (postIsDeleted) return <></>;
 
   return (
     <Card onBlur={() => setTimeout(() => setDeletePost(false), 150)}>
