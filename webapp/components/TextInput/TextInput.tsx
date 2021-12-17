@@ -9,6 +9,7 @@ interface Props {
   mt?: number;
   placeholder?: string;
   autoFocus?: boolean;
+  style?: Object;
 }
 
 const TextInput: React.FC<Props> = ({
@@ -19,9 +20,11 @@ const TextInput: React.FC<Props> = ({
   mt,
   placeholder,
   autoFocus,
+  style,
 }) => {
   return (
     <Input
+      style={style}
       autoFocus={autoFocus}
       fluid={fluid}
       mb={mb}

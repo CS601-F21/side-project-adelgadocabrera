@@ -8,6 +8,7 @@ interface Props {
   to?: string;
   style?: {};
   disabled?: boolean;
+  type?: "submit" | "button" | "reset";
 }
 
 const Button: React.FC<Props> = ({
@@ -17,6 +18,7 @@ const Button: React.FC<Props> = ({
   link,
   to,
   disabled,
+  type,
 }) => {
   disabled = Boolean(disabled);
 
@@ -35,6 +37,7 @@ const Button: React.FC<Props> = ({
       disabled={disabled}
       style={style && { ...style }}
       onClick={(e) => callback && callback(e)}
+      type={type ?? "button"}
     >
       {children}
     </Wrapper>

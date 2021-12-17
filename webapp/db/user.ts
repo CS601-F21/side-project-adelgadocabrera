@@ -6,6 +6,7 @@ export default interface User {
   name: string;
   email: string;
   quote: string;
+  about: string;
   image?: string;
   createdAt: Date;
   updatedAt: Date;

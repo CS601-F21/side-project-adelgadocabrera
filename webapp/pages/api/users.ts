@@ -1,18 +1,43 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import Prisma from "../../db/prisma";
-import User from "../../db/user";
+import { success, failure } from "../../db/response";
 
 export default async function (
   req: NextApiRequest,
   res: NextApiResponse
 ): Promise<void> {
   if (req.method === "GET") {
-    res.status(200).json(await getUsers());
+    const users = await getUsers();
+    if (users) {
+      res.status(200).json(success(users));
+    } else {
+      res.status(500).json(failure("Oops! Something went wrong"));
+    }
+  } else if (req.method == "PUT") {
+    const updatedUser = await updateUser(req);
+    if (updatedUser) {
+      res.status(200).json(success(updatedUser));
+    } else {
+      res.status(500).json(failure("Something went wrong updating user"));
+    }
   } else {
     res.status(400).json({
       error: "400 BAD REQUEST",
     });
   }
+}
+
+async function updateUser(req: NextApiRequest) {
+  const body = JSON.parse(req.body);
+  const name: string = body.name;
+  return await Prisma.user.update({
+    where: {
+      name,
+    },
+    data: {
+      ...body,
+    },
+  });
 }
 
 export async function getUserByName(name: string) {

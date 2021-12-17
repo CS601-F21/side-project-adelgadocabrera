@@ -13,7 +13,7 @@ const AuthorSignature: React.FC<Props> = ({ user }) => {
     <Container>
       {user?.image && <Img src={user.image} />}
       <Body>
-        <Link href={`user/${id}`}>
+        <Link href={`/user/${id}`}>
           <Name>@{name}</Name>
         </Link>
         {quote && <Quote>{quote}</Quote>}

@@ -1,8 +1,9 @@
 import styled from "styled-components";
 
 export default styled.code`
-  background: #fafafa;
-  color: rgb(20, 20, 20);
+  background: rgb(50, 50, 80);
+  color: white;
+  font-weight: 500;
   border-radius: 3px;
   padding: 10px 15px;
   font-family: Fira Code, Menlo, Monaco, Lucida Console, Liberation Mono,

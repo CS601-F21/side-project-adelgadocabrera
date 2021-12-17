@@ -3,24 +3,41 @@ import { HomePage } from "../containers";
 import Head from "next/head";
 import { Footer, Navbar } from "../components";
 import { getPosts } from "./api/posts";
+import { getBadges } from "./api/badges";
 import Post from "../db/post";
+import Badge, { BadgesMap } from "../db/badge";
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const posts = await getPosts(0);
+  const reqPosts = getPosts(0);
+  const reqBadges: Promise<Badge[]> = getBadges();
+
+  const data = await Promise.all([reqPosts, reqBadges]);
+  const badges: Badge[] = data[1];
+  const badgesMap: BadgesMap = badges.reduce((prev: BadgesMap, curr: Badge) => {
+    const badge = curr.name;
+    if (prev.hasOwnProperty(badge)) {
+      prev[badge] = prev[badge] + 1;
+    } else {
+      prev[badge] = 1;
+    }
+    return prev;
+  }, {});
 
   return {
     props: {
-      posts,
+      posts: data[0],
+      badges: badgesMap,
     },
   };
 };
 
 interface Props {
   posts: Post[];
+  badges: BadgesMap;
 }
 
 const Home: NextPage<Props> = (props) => {
-  const { posts } = props;
+  const { posts, badges } = props;
   return (
     <>
       <Head>
@@ -30,7 +47,7 @@ const Home: NextPage<Props> = (props) => {
       </Head>
 
       <Navbar />
-      <HomePage posts={posts} />
+      <HomePage posts={posts} badges={badges} />
       <Footer />
     </>
   );

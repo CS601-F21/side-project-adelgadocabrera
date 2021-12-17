@@ -7,7 +7,7 @@ interface Props {
 
 const Posts: React.FC<Props> = ({ posts }) => {
   return (
-    <main>
+    <main style={{ marginBottom: "50px" }}>
       {posts.map((post) => (
         <PostCard
           key={"post-id-" + post.id}
