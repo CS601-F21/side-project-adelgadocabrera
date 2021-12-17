@@ -16,8 +16,9 @@ const Search: React.FC<Props> = ({ badges, setPosts, posts }) => {
 
   return (
     <Wrapper>
+      <Label>Search by badge</Label>
       <TextInput
-        placeholder="Search by badge"
+        placeholder="Search javascript, leetcode, .net.."
         text={search}
         callback={(e: any) => {
           setSearch(e);
@@ -36,4 +37,11 @@ export default Search;
 
 const Wrapper = styled.div`
   margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+`;
+
+const Label = styled.label`
+  font-weight: 600;
+  margin-right: 10px;
 `;

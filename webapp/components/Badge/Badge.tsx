@@ -20,6 +20,7 @@ interface WrapperProps {
 }
 
 const BadgeWrapper = styled.span`
+  width: auto;
   padding: 5px 10px;
   border-radius: 8px;
   background-color: rgb(10, 10, 140, 0.7);
@@ -28,6 +29,7 @@ const BadgeWrapper = styled.span`
   font-size: 14px;
   margin-right: 5px;
   cursor: pointer;
+  line-height: 2.5;
 
   &:hover {
     filter: brightness(1.5);

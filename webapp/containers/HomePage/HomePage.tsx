@@ -18,14 +18,14 @@ const HomePage: React.FC<Props> = (props, { badges }) => {
     <Container>
       <Hero />
       <HeadlineWrapper>
-        <Search badges={badges} posts={props.posts} setPosts={setPosts} />
+        <p style={{ marginBottom: "40px", marginTop: "40px" }}>
+          Get started by <Code>code reviewing</Code>
+        </p>
         <Button link to={"/codereview"}>
           Request Code Review
         </Button>
       </HeadlineWrapper>
-      <p style={{ marginBottom: "40px", marginTop: "40px" }}>
-        Get started by <Code>code reviewing</Code>
-      </p>
+      <Search badges={badges} posts={props.posts} setPosts={setPosts} />
       <Posts posts={posts} />
     </Container>
   );
@@ -37,5 +37,6 @@ const HeadlineWrapper = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  margin-bottom: 40px;
+  height: 60px;
+  margin-bottom: 60px;
 `;

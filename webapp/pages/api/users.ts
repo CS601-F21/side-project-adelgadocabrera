@@ -54,7 +54,11 @@ export async function getUserById(id: number) {
       id,
     },
     include: {
-      posts: true,
+      posts: {
+        include: {
+          badges: true,
+        },
+      },
       badges: true,
     },
   });

@@ -12,6 +12,7 @@ export default async function (
 ): Promise<void> {
   if (req.method === "POST") return doPost(req, res);
   if (req.method === "PUT") return doPut(req, res);
+  if (req.method === "DELETE") return doDelete(req, res);
 
   res.status(400).json({
     error: "400 BAD REQUEST",
@@ -57,6 +58,15 @@ async function doPut(req: NextApiRequest, res: NextApiResponse) {
     }
   } catch (err) {
     res.status(400).json(failure("Oops! Something went wrong creating post!"));
+  }
+}
+
+async function doDelete(req: NextApiRequest, res: NextApiResponse) {
+  try {
+    const deletedPost = await deletePost(JSON.parse(req.body).postId);
+    res.status(200).json(success(deletedPost));
+  } catch (e) {
+    res.status(400).json(failure("Oops! Something went wrong deleting post"));
   }
 }
 
@@ -137,6 +147,14 @@ export async function dislikePost(postId: number) {
       likes: {
         decrement: 1,
       },
+    },
+  });
+}
+
+async function deletePost(postId: number) {
+  return await Prisma.post.delete({
+    where: {
+      id: postId,
     },
   });
 }

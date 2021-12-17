@@ -1,16 +1,42 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import IPost from "../../db/post";
 import { Badge } from "../index";
 import Link from "next/link";
 import { fromNow } from "../../utils/dates";
+import { TextInput } from "../";
 
-export const PostCard: React.FC<Props> = ({ post }) => {
+interface Props {
+  post: IPost;
+  editable: boolean;
+}
+
+export const PostCard: React.FC<Props> = ({ post, editable }) => {
+  const [deletePost, setDeletePost] = useState<boolean>(false);
+  const [deleteMsg, setDeleteMsg] = useState<string>("");
+  const [postIsDeleted, setPostIsDeleted] = useState<boolean>(false);
   const contentLength = 160; // number of chars
 
+  async function handleDeletePost(e: string) {
+    setDeleteMsg(e);
+
+    if (e == post.title) {
+      const deleteRequest = await fetch("/api/posts", {
+        method: "DELETE",
+        body: JSON.stringify({ postId: post.id }),
+      });
+      setPostIsDeleted(true);
+    }
+  }
+
+  if (postIsDeleted) return "";
+
   return (
-    <Link href={"/post/" + post.id} key={"post-" + post.id}>
-      <Card>
+    <Card onBlur={() => setTimeout(() => setDeletePost(false), 150)}>
+      <Link
+        href={"/post/" + post.id}
+        key={"post-" + post.id + "-" + post.title}
+      >
         <Metadata>
           <Item>
             <Number>{post.likes}</Number>
@@ -23,25 +49,66 @@ export const PostCard: React.FC<Props> = ({ post }) => {
             code reviews
           </Item>
         </Metadata>
+      </Link>
+      {deletePost ? (
         <Body>
-          <Title>{post.title}</Title>
-          <Description>
-            {post.content.length > contentLength
-              ? post.content.slice(0, contentLength) + "..."
-              : post.content}
-          </Description>
-          <Date>{fromNow(post.createdAt)}</Date>
-          <Badges>
-            {post.badges &&
-              post.badges.map((b) => (
-                <Badge key={"badge-" + b.id}>{b.name}</Badge>
-              ))}
-          </Badges>
+          <p>
+            Type <strong>{post.title}</strong> to delete post:
+          </p>
+          <TextInput
+            fluid
+            autoFocus
+            text={deleteMsg}
+            callback={handleDeletePost}
+          />
         </Body>
-      </Card>
-    </Link>
+      ) : (
+        <Link href={"/post/" + post.id} key={"post-" + post.id}>
+          <Body>
+            <Title>{post.title}</Title>
+            <Description>
+              {post.content.length > contentLength
+                ? post.content.slice(0, contentLength) + "..."
+                : post.content}
+            </Description>
+            <Date>{fromNow(post.createdAt)}</Date>
+            <Badges>
+              {post.badges &&
+                post.badges.map((b) => (
+                  <Badge key={"badge-" + b.id}>{b.name}</Badge>
+                ))}
+            </Badges>
+          </Body>
+        </Link>
+      )}
+      {editable && (
+        <DeleteWrapper onClick={() => !deletePost && setDeletePost(true)}>
+          {deletePost ? "Cancel" : "Delete"}
+        </DeleteWrapper>
+      )}
+    </Card>
   );
 };
+
+const DeleteWrapper = styled.div`
+  z-index: 999;
+  cursor: pointer;
+  background-color: rgb(209, 26, 42);
+  padding: 10px 20px;
+  font-weight: 600;
+  color: white;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+
+  @media (min-width: 768px) {
+    flex-direction: row;
+  }
+
+  &:hover {
+    filter: brightness(1.1);
+  }
+`;
 
 const Body = styled.div`
   width: 100%;
@@ -140,6 +207,7 @@ const Badges = styled.div`
   display: flex;
   align-items: flex-end;
   align-content: flex-end;
+  flex-wrap: wrap;
 `;
 
 const Date = styled.div`
@@ -147,7 +215,3 @@ const Date = styled.div`
   color: gray;
   font-size: 14px;
 `;
-
-interface Props {
-  post: IPost;
-}

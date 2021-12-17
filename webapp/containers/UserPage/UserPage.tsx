@@ -149,7 +149,7 @@ const UserPage: React.FC<Props> = ({ profile, isOwner }) => {
       </form>
 
       {posts && posts.length > 0 && <Title>Code Review Requests</Title>}
-      {posts && <Posts posts={posts} />}
+      {posts && <Posts editable={isOwner} posts={posts} />}
     </Container>
   );
 };

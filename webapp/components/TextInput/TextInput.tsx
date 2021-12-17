@@ -9,6 +9,7 @@ interface Props {
   mt?: number;
   placeholder?: string;
   autoFocus?: boolean;
+  onBlur?: Function;
   style?: Object;
 }
 
@@ -21,6 +22,7 @@ const TextInput: React.FC<Props> = ({
   placeholder,
   autoFocus,
   style,
+  onBlur,
 }) => {
   return (
     <Input
@@ -33,6 +35,7 @@ const TextInput: React.FC<Props> = ({
       onChange={(e: ChangeEvent<HTMLInputElement>) =>
         callback && callback(e.target.value)
       }
+      onBlur={() => onBlur && onBlur()}
       placeholder={placeholder}
     />
   );
